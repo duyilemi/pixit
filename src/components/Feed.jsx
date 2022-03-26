@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-import { client } from '../client';
-import { feedQuery, searchQuery } from '../utils/data';
-import MasonryLayout from './MasonryLayout';
-import Spinner from './Spinner';
+import { client } from "../client";
+import { feedQuery, searchQuery } from "../utils/data";
+import MasonryLayout from "./MasonryLayout";
+import Spinner from "./Spinner";
 
 const Feed = () => {
   const [pins, setPins] = useState();
@@ -28,7 +28,7 @@ const Feed = () => {
       });
     }
   }, [categoryId]);
-  const ideaName = categoryId || 'new';
+  const ideaName = categoryId || "new";
   if (loading) {
     return (
       <Spinner message={`We are adding ${ideaName} ideas to your feed!`} />
@@ -36,8 +36,12 @@ const Feed = () => {
   }
   return (
     <div>
-      {pins && (
+      {pins ? (
         <MasonryLayout pins={pins} />
+      ) : (
+        <Spinner
+          message={`Feeds in ${ideaName} category is currently empty!`}
+        />
       )}
     </div>
   );
